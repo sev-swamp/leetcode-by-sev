@@ -24,15 +24,16 @@ jobs:
       - name: Build project
         run: dotnet build --configuration Release --no-restore
 
-      - name: Run tests
-        run: dotnet test --no-restore --verbosity normal
+      - name: Run tests with TRX logging
+        run: dotnet test --logger "trx;LogFileName=TestResults.trx"
 
-      - name: Generate test report
+      - name: Install ReportGenerator
+        run: dotnet tool install --global dotnet-reportgenerator-globaltool
+
+      - name: Generate HTML report
         run: |
           mkdir -p docs
-          dotnet test --logger:"trx;LogFileName=TestResults.trx"
-          dotnet tool install -g trx2html
-          trx2html TestResults.trx -o docs/index.html
+          reportgenerator -reports:TestResults.trx -targetdir:docs -reporttypes:Html
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
