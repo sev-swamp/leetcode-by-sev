@@ -25,7 +25,7 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Run tests with TRX logging
-        run: dotnet test --logger "trx;LogFileName=TestResults.trx"
+        run: dotnet test --no-restore --verbosity normal --logger "trx;LogFileName=TestResults.trx" 
 
       - name: Install ReportGenerator
         run: dotnet tool install --global dotnet-reportgenerator-globaltool
