@@ -1,2 +1,2 @@
 # leetcode-by-sev
-решения с leetcode
+решения задач на leetcode
