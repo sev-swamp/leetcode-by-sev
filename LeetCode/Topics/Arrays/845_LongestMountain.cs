@@ -1,11 +1,23 @@
 namespace LeetCode;
 
 /// <summary>
-/// https://leetcode.com/problems/longest-mountain-in-array/description/
+/// LeetCode #845 — Longest Mountain in Array
+/// https://leetcode.com/problems/longest-mountain-in-array/
+/// Difficulty: Medium | Topic: Arrays, Two Pointers
+///
+/// Problem:
+///   Find the length of the longest subarray that forms a mountain:
+///   strictly increasing then strictly decreasing, minimum 3 elements.
+///   Return 0 if no mountain exists.
+///
+/// Algorithm: Single Pass
+///   Track consecutive up-steps and down-steps. When direction changes
+///   or a plateau is found, reset the counters.
+///
+/// Time: O(n) | Space: O(1)
 /// </summary>
 public static class LongestMountain
 {
-    //O{n} - 
     public static int LongestMountains(int[] arr)
     {
         int maxlength = 0;
@@ -24,7 +36,6 @@ public static class LongestMountain
 
             if (arr[index] < arr[index + 1])
             {
-                //if (index == 0) up += 1;
                 if (down == 0)
                 {
                     up += 1;

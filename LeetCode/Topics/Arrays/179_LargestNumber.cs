@@ -2,14 +2,25 @@ using System.Text;
 
 namespace LeetCode;
 
-public static class LargeNumber
+/// <summary>
+/// LeetCode #179 — Largest Number
+/// https://leetcode.com/problems/largest-number/
+/// Difficulty: Medium | Topic: Arrays, Sorting
+///
+/// Problem:
+///   Given a list of non-negative integers, arrange them to form the largest number.
+///   Return the result as a string.
+///
+/// LargestNumberTask — O(n log n):
+///   Custom sort: compare concatenations (a+b) vs (b+a) as strings to decide order.
+///
+/// LargestNumber2Task — O(n log n):
+///   Bucket sort by first digit, then custom-sort within each bucket.
+/// </summary>
+public static class LargestNumber
 {
-    /// <summary>
-    /// https://leetcode.com/problems/largest-number/
-    /// </summary>
     public static string LargestNumberTask(int[] nums)
     {
-
         var numStrs = nums.Select(n => n.ToString()).ToArray();
 
         Array.Sort(numStrs, (x, y) => (y + x).CompareTo(x + y));
@@ -57,19 +68,7 @@ public static class LargeNumber
     private static int CustomCompare(string firstLine, string secondLine)
     {
         if (firstLine.Length == secondLine.Length)
-        {
             string.Compare(secondLine, firstLine, StringComparison.Ordinal);
-        }
         return string.Compare(secondLine + firstLine, firstLine + secondLine, StringComparison.Ordinal);
     }
-
 }
-
-
-
-
-// Input: nums = [10, 2]
-// Output: "210"
-
-// Input: nums = [3, 30, 34, 5, 9]
-// Output: "9534330"
