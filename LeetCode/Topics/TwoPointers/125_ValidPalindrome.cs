@@ -15,6 +15,29 @@ public static class ValidPalindrome
 {
     public static bool IsPalindrome(string s)
     {
-        throw new NotImplementedException();
+        int left = 0;
+        int right = s.Length - 1;
+        while (left < right)
+        {
+            char leftChar = char.ToLowerInvariant(s[left]);
+            char rightChar = char.ToLowerInvariant(s[right]);
+            if (!char.IsLetterOrDigit(leftChar))
+            {
+                left++;
+                continue;
+            }
+            if (!char.IsLetterOrDigit(rightChar))
+            {
+                right--;
+                continue;
+            }
+
+            if (leftChar != rightChar)
+                return false;
+
+            left++;
+            right--;
+        }
+        return true;
     }
 }
