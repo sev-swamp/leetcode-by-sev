@@ -15,6 +15,28 @@ public static class SortColors
 {
     public static void SortColorsSolution(int[] nums)
     {
-        throw new NotImplementedException();
+        int cursor = 0;
+        int left = 0;
+        int wight = nums.Length - 1;
+        while (cursor <= wight)
+        {
+            if (nums[cursor] == 2)
+            {
+                nums[cursor] = nums[wight];
+                nums[wight] = 2;
+                wight--;
+            }
+            else if (nums[cursor] == 1)
+            {
+                cursor++;
+            }
+            else
+            {
+                nums[cursor] = nums[left];
+                nums[left] = 0;
+                cursor++;
+                left++;
+            }
+        }
     }
 }
