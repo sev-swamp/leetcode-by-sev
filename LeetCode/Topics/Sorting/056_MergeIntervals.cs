@@ -16,6 +16,24 @@ public static class MergeIntervals
 {
     public static int[][] Merge(int[][] intervals)
     {
-        throw new NotImplementedException();
+        Array.Sort(intervals, (x, y) => x[0].CompareTo(y[0]));
+        List<int[]> newinterval = new List<int[]>();
+
+        var start = intervals[0];
+
+        for (int i = 0; i <= intervals.Length - 1; i++)
+        {
+            var next = intervals[i];
+            if (start[1] >= next[0])
+                start[1] = Math.Max(start[1], next[1]);
+            else
+            {
+                newinterval.Add(start);
+                start = next;
+            }
+        }
+
+        newinterval.Add(start);
+        return newinterval.ToArray();
     }
 }
