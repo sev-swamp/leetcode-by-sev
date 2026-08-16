@@ -1,3 +1,5 @@
+using Microsoft.VisualBasic;
+
 namespace LeetCode;
 
 /// <summary>
@@ -14,6 +16,48 @@ public static class FindAllAnagrams
 {
     public static IList<int> FindAnagrams(string s, string p)
     {
-        throw new NotImplementedException();
+        List<int> anagrams = new List<int>();
+
+        if (s.Length < p.Length)
+            return anagrams;
+
+        int left = 0;
+        int right = p.Length - 1;
+        int[] need = new int[26];
+        int[] window = new int[26];
+        for (int i = 0; i <= right; i++)
+        {
+            need[p[i] - 'a']++;
+            window[s[i] - 'a']++;
+        }
+        if (IsCompareArray(need, window))
+            anagrams.Add(left);
+
+        right++;
+        while (right < s.Length)
+        {
+            var rightitem = s[right] - 'a';
+            var leftitem = s[left] - 'a';
+
+            window[rightitem]++;
+            window[leftitem]--;
+
+            if (IsCompareArray(need, window))
+                anagrams.Add(left + 1);
+            right++;
+            left++;
+        }
+
+        return anagrams;
     }
+
+    private static bool IsCompareArray(int[] need, int[] window)
+    {
+        return need.SequenceEqual(window);
+    }
+    // "cbaebabacd", "abc" 
+    //[1, 1, 1, 0 ,0 ...]
+    //[1, 1, 1, 0 ,0 ...]
+    //[0, 1, 1, 0 ,1 ...]
+    //[0, 1, 1, 0 ,1 ...]
 }
